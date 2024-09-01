@@ -1,1 +1,1 @@
-export const URL = "https://chat-app-backend-mathi.onrender.com";
+export const URL = "https://chat-app-backend-mathi.onrender.com/api/user";
