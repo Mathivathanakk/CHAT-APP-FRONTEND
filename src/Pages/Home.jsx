@@ -42,7 +42,7 @@ const Home = () => {
   // socket connection
 
   useEffect(() => {
-    const socketConnection = io("http://localhost:5000", {
+    const socketConnection = io("https://chat-app-backend-mathi.onrender.com", {
       auth: {
         token: localStorage.getItem("token"),
       },
