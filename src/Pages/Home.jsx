@@ -4,7 +4,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "../Components/Sidebar";
 import axios from "axios";
 import { URL } from "../Uploads/Backend";
-import { logout, setSocketConnection, setUser } from "../Redux/UserSlice";
+import { logout, setOnlineUser, setSocketConnection, setUser } from "../Redux/UserSlice";
 import { LiaGripfire } from "react-icons/lia";
 import { io } from "socket.io-client";
 
@@ -27,12 +27,13 @@ const Home = () => {
         url: `${URL}/user-details`,
         withCredentials: true,
       });
+    
       dispatch(setUser(response.data.data));
-      if (response.data.data.logout) {
+      if (response?.data?.data?.logout) {
         dispatch(logout());
         navigate("/email");
       }
-      console.log("current user Details", response);
+      console.log("current user Details", response.data);
     } catch (error) {
       console.log("error", error);
     }
@@ -48,6 +49,15 @@ const Home = () => {
         token: localStorage.getItem("token"),
       },
     });
+
+socketConnection.on('onlineUser',(data)=>{
+  console.log(data)
+  dispatch(setOnlineUser(data))
+})
+
+
+
+
     dispatch(setSocketConnection(socketConnection));
 
     return () => {
