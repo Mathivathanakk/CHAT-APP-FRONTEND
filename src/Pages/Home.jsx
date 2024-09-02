@@ -23,6 +23,7 @@ const Home = () => {
   const fetchUserDetails = async () => {
     try {
       const response = await axios({
+        method:"GET",
         url: `${URL}/user-details`,
         withCredentials: true,
       });
